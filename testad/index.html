@@ -45,31 +45,36 @@
     });
   </script>
 
-<script type="text/javascript">
-  var time = 5
-  var fintime;
-  function countleft() {
-      var btn = document.getElementById("getReg");
-      if(btn){//如果网速比较慢，定时器开始运行的时候网页还没有加载出来
-          if(time<=0){
-              btn.value = "同意";
-              btn.disabled = false;
-              clearInterval(fintime);//计时结束后就停止倒数计时
-          } else {
-              btn.value = "请仔细阅读协议（还剩" + time + "秒）";
-              time--;
-          }
-      }
-  }
-  fintime=  setInterval("countleft()",1000);
+  <script type="text/javascript">
+    // var time = 5
+    // var fintime;
+    // function countleft() {
+    //   var btn = document.getElementById("btn_ok");
+    //   if (btn) {//如果网速比较慢，定时器开始运行的时候网页还没有加载出来
+    //     if (time <= 0) {
+    //       btn.value = "同意";
+    //       btn.disabled = false;
+    //       clearInterval(fintime);//计时结束后就停止倒数计时
+    //     } else {
+    //       btn.value = "请仔细阅读协议（还剩" + time + "秒）";
+    //       time--;
+    //     }
+    //   }
+    // }
+    // fintime = setInterval("countleft()", 1000);
 
-  function changeColor() {
-    // name.style.color = "blue";
-    console.log(">L>>>>" );
-    document.getElementById("ad_id").style.display="none";
-    // document.getElementById("ad_id").style.display="";//显示
-  }
-</script>
+
+    var close_tag
+    function close_ad() {
+      // name.style.color = "blue";
+      console.log("client close_ad >L>>>>");
+      document.getElementById("ad_id_root").style.display = "none";
+      // document.getElementById("ad_id_root").style.display="";//显示
+      clearInterval(close_tag);//计时结束后就停止倒数计时
+    }
+    close_tag = setInterval("close_ad()", 1);
+
+  </script>
 
   <style>
     /* .div-relative {
@@ -95,12 +100,12 @@
       bottom: 0;
     } */
 
-    .div-a {
+    .div-child {
       text-align: center;
       background-color: #fff;
       border-radius: 20px;
-      width: 400px;
-      height: 350px;
+      /* width: 400px;
+      height: 350px; */
       position: absolute;
       left: 50%;
       top: 50%;
@@ -109,7 +114,8 @@
 
 
     /* div背景色为红色 */
-    .div-b {
+    .div-root {
+      /* display: none; */
       position: absolute;
       left: 0px;
       top: 0px;
@@ -121,7 +127,8 @@
       -moz-opacity: 0.6;
       opacity: 0.5 */
     }
-    .div-b-1 {
+
+    .div-root-bg {
       /* position: absolute; */
       left: 0px;
       top: 0px;
@@ -150,20 +157,18 @@
 </head>
 
 <body>
-  <div class="div-b" id="ad_id">
-    <div class="div-b-1"></div>
-    <div class="div-a">
-    
-        <div id='div-gpt-ad-1720771761394967-0' style='min-width: 300px; min-height: 250px;'>
-          <script>
-            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1720771761394967-0'); });
-          </script>
-        </div>
-     
-      <div>
-        <input type="button" id="getReg" disabled="disabled" value="同意" onclick="changeColor()" />
+  <div class="div-root" id="ad_id_root">
+    <div class="div-root-bg"></div>
+    <div class="div-child">
+      <div id='div-gpt-ad-1720771761394967-0' style='min-width: 300px; min-height: 250px;'>
+        <script>
+          googletag.cmd.push(function () { googletag.display('div-gpt-ad-1720771761394967-0'); });
+        </script>
       </div>
-
+      <div>
+        <!-- <input type="button" id="btn_ok" disabled="disabled" value="同意" onclick="close_ad()" /> -->
+        <input type="button" id="btn_ok" disabled="disabled" value="同意" />
+      </div>
     </div>
   </div>
   <div id="GameDiv">
@@ -174,7 +179,6 @@
 
 
   <!-- Polyfills bundle. -->
-
   <script src="src/polyfills.bundle.js" charset="utf-8"> </script>
   <!-- SystemJS support. -->
   <script src="src/system.bundle.js" charset="utf-8"> </script>
