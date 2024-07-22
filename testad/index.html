@@ -45,6 +45,32 @@
     });
   </script>
 
+<script type="text/javascript">
+  var time = 5
+  var fintime;
+  function countleft() {
+      var btn = document.getElementById("getReg");
+      if(btn){//如果网速比较慢，定时器开始运行的时候网页还没有加载出来
+          if(time<=0){
+              btn.value = "同意";
+              btn.disabled = false;
+              clearInterval(fintime);//计时结束后就停止倒数计时
+          } else {
+              btn.value = "请仔细阅读协议（还剩" + time + "秒）";
+              time--;
+          }
+      }
+  }
+  fintime=  setInterval("countleft()",1000);
+
+  function changeColor() {
+    // name.style.color = "blue";
+    console.log(">L>>>>" );
+    document.getElementById("ad_id").style.display="none";
+    // document.getElementById("ad_id").style.display="";//显示
+  }
+</script>
+
   <style>
     /* .div-relative {
       position: relative;
@@ -124,7 +150,7 @@
 </head>
 
 <body>
-  <div class="div-b">
+  <div class="div-b" id="ad_id">
     <div class="div-b-1"></div>
     <div class="div-a">
     
@@ -135,7 +161,7 @@
         </div>
      
       <div>
-        <button>hello</button>
+        <input type="button" id="getReg" disabled="disabled" value="同意" onclick="changeColor()" />
       </div>
 
     </div>
