@@ -74,6 +74,20 @@
     }
     close_tag = setInterval("close_ad()", 1);
 
+    function btn_test() {
+      // name.style.color = "blue";
+      console.log("client btn_test >L>>>>");
+      console.log("client  window.googletag >L>>>>", window.googletag);
+      window.googletag.destroySlots();
+      window.googletag.cmd.push(function () {
+        window.googletag.defineSlot('/23001303080/sequone.com/sequone.com-300x250-index-01-071201', [300, 250], 'div-gpt-ad-1720771761394967-0').addService(googletag.pubads());
+        window.googletag.pubads().collapseEmptyDivs();
+        window.googletag.enableServices();
+        window.googletag.display('div-gpt-ad-1720771761394967-0');
+        window.googletag.pubads().refresh();
+      });
+    }
+
   </script>
 
   <style>
@@ -102,8 +116,8 @@
 
     .div-child {
       text-align: center;
-      background-color: #fff;
-      border-radius: 20px;
+      /* background-color: #fff; */
+      /* border-radius: 20px; */
       /* width: 400px;
       height: 350px; */
       position: absolute;
@@ -168,6 +182,11 @@
       <div>
         <!-- <input type="button" id="btn_ok" disabled="disabled" value="同意" onclick="close_ad()" /> -->
         <input type="button" id="btn_ok" disabled="disabled" value="同意" />
+        <div>
+          <br>
+          <input type="button" id="btn_test" onclick="btn_test()" value="test" />
+        </div>
+
       </div>
     </div>
   </div>
