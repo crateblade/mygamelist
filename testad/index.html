@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
 
@@ -8,7 +7,7 @@
 
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
-    content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true" />
+        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
 
   <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,16 +15,16 @@
   <meta name="format-detection" content="telephone=no">
 
   <!-- force webkit on 360 -->
-  <meta name="renderer" content="webkit" />
-  <meta name="force-rendering" content="webkit" />
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
   <!-- force edge on IE -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <meta name="msapplication-tap-highlight" content="no">
 
   <!-- force full screen on some browser -->
-  <meta name="full-screen" content="yes" />
-  <meta name="x5-fullscreen" content="true" />
-  <meta name="360-fullscreen" content="true" />
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
 
   <!--fix fireball/issues/3568 -->
   <!--<meta name="browsermode" content="application">-->
@@ -34,116 +33,27 @@
   <!--<link rel="apple-touch-icon" href=".png" />-->
   <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
 
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="style.css"/>
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-  <script>
-    window.googletag = window.googletag || { cmd: [] };
-    googletag.cmd.push(function () {
-      googletag.defineSlot('/23001303080/sequone.com/sequone.com-300x250-index-01-071201', [300, 250], 'div-gpt-ad-1720771761394967-0').addService(googletag.pubads());
-      googletag.pubads().collapseEmptyDivs();
-      googletag.enableServices();
-    });
-  </script>
-
-  <script type="text/javascript">
-    // var time = 5
-    // var fintime;
-    // function countleft() {
-    //   var btn = document.getElementById("btn_ok");
-    //   if (btn) {//如果网速比较慢，定时器开始运行的时候网页还没有加载出来
-    //     if (time <= 0) {
-    //       btn.value = "同意";
-    //       btn.disabled = false;
-    //       clearInterval(fintime);//计时结束后就停止倒数计时
-    //     } else {
-    //       btn.value = "请仔细阅读协议（还剩" + time + "秒）";
-    //       time--;
-    //     }
-    //   }
-    // }
-    // fintime = setInterval("countleft()", 1000);
-
-
-    var close_tag
-    function close_ad() {
-      // name.style.color = "blue";
-      console.log("client close_ad >L>>>>");
-      document.getElementById("ad_id_root").style.display = "none";
-      // document.getElementById("ad_id_root").style.display="";//显示
-      clearInterval(close_tag);//计时结束后就停止倒数计时
-    }
-    close_tag = setInterval("close_ad()", 1);
-
-    function btn_test() {
-      // name.style.color = "blue";
-      console.log("client btn_test >L>>>>");
-      console.log("client  window.googletag >L>>>>", window.googletag);
-      window.googletag.destroySlots();
-      window.googletag.cmd.push(function () {
-        window.googletag.defineSlot('/23001303080/sequone.com/sequone.com-300x250-index-01-071201', [300, 250], 'div-gpt-ad-1720771761394967-0').addService(googletag.pubads());
-        window.googletag.pubads().collapseEmptyDivs();
-        window.googletag.enableServices();
-        window.googletag.display('div-gpt-ad-1720771761394967-0');
-        window.googletag.pubads().refresh();
-      });
-    }
-
-  </script>
-
   <style>
-    /* .div-relative {
-      position: relative;
-      color: #000;
-      border: 1px solid #000;
-      width: 500px;
-      height: 400px
-    } */
-
-    /* .div-a {
-      position: absolute;
-   
-      z-index: 100;
-      background: #F00;
-      width: 200px;
-      height: 100px;
-
-      text-align: center;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    } */
-
     .div-child {
       text-align: center;
-      /* background-color: #fff; */
-      /* border-radius: 20px; */
-      /* width: 400px;
-      height: 350px; */
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
     }
-
-
     /* div背景色为红色 */
     .div-root {
-      /* display: none; */
       position: absolute;
       left: 0px;
       top: 0px;
       z-index: 80;
-      /* background: rgb(237, 237, 2); */
       width: 100%;
       height: 100%;
-      /* filter: alpha(Opacity=60);
-      -moz-opacity: 0.6;
-      opacity: 0.5 */
     }
 
     .div-root-bg {
-      /* position: absolute; */
       left: 0px;
       top: 0px;
       z-index: 80;
@@ -154,58 +64,30 @@
       -moz-opacity: 0.6;
       opacity: 0.5
     }
-
-    /* 背景为黄色 */
-    /* .div-c {
-      position: absolute;
-      left: 80px;
-      top: 80px;
-      z-index: 70;
-      background: #00F;
-      width: 100%;
-      height: 100%
-    } */
-
-    /* 背景为蓝色 */
   </style>
 </head>
-
 <body>
-  <div class="div-root" id="ad_id_root">
-    <div class="div-root-bg"></div>
-    <div class="div-child">
-      <div id='div-gpt-ad-1720771761394967-0' style='min-width: 300px; min-height: 250px;'>
-        <script>
-          googletag.cmd.push(function () { googletag.display('div-gpt-ad-1720771761394967-0'); });
-        </script>
-      </div>
-      <div>
-        <!-- <input type="button" id="btn_ok" disabled="disabled" value="同意" onclick="close_ad()" /> -->
-        <input type="button" id="btn_ok" disabled="disabled" value="同意" />
-        <div>
-          <br>
-          <input type="button" id="btn_test" onclick="btn_test()" value="test" />
-        </div>
-
+  <div id="GameDiv" cc_exact_fit_screen="true">
+      <div id="Cocos3dGameContainer">
+        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
       </div>
     </div>
-  </div>
-  <div id="GameDiv">
-    <div id="Cocos3dGameContainer">
-      <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
-    </div>
-  </div>
+  
+
+<!-- Polyfills bundle. -->
+
+<script src="src/polyfills.bundle.js" charset="utf-8"> </script>
 
 
-  <!-- Polyfills bundle. -->
-  <script src="src/polyfills.bundle.js" charset="utf-8"> </script>
-  <!-- SystemJS support. -->
-  <script src="src/system.bundle.js" charset="utf-8"> </script>
-  <!-- Import map -->
-  <script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
-  <script>
-    System.import('./index.js').catch(function (err) { console.error(err); })
-  </script>
+<!-- SystemJS support. -->
+<script src="src/system.bundle.js" charset="utf-8"> </script>
+
+<!-- Import map -->
+<script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
+
+<script>
+    System.import('./index.js').catch(function(err) { console.error(err); })
+</script>
+
 </body>
-
 </html>
