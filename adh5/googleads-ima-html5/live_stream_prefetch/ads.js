@@ -59,11 +59,12 @@ function requestAds(liveStreamPrefetchSeconds) {
   }
   // Request video ads.
   const adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
-      'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
-      'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&' +
-      'correlator=';
+  // adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+  //     'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
+  //     'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
+  //     'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&' +
+  //     'correlator=';
+  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/23001303080/sequone.com/sequone.com-reward-072301&description_url=http%3A%2F%2Fsequone.com&tfcd=0&npa=0&sz=300x250%7C400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
