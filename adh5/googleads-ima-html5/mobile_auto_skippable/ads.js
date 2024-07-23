@@ -13,6 +13,7 @@ let videoContent;
  * Initializes IMA setup.
  */
 function init() {
+  console.log("init ");
   videoContent = document.getElementById('contentElement');
   setUpIMA();
 }
@@ -21,6 +22,7 @@ function init() {
  * Sets up IMA ad display container, ads loader, and makes an ad request.
  */
 function setUpIMA() {
+  console.log("setUpIMA start");
   google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
   // Create the ad display container.
   createAdDisplayContainer();
@@ -28,24 +30,26 @@ function setUpIMA() {
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
-      google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      onAdsManagerLoaded, false);
+    google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+    onAdsManagerLoaded, false);
   adsLoader.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+    google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
-  const contentEndedListener = function() {
+  const contentEndedListener = function () {
     adsLoader.contentComplete();
   };
   videoContent.onended = contentEndedListener;
 
   // Request video ads.
   const adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'iu=/21775744923/external/single_preroll_skippable&sz=640x480&' +
-      'ciu_szs=300x250%2C728x90&gdfp_req=1&' +
-      'output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+  // adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+  //     'iu=/21775744923/external/single_preroll_skippable&sz=640x480&' +
+  //     'ciu_szs=300x250%2C728x90&gdfp_req=1&' +
+  //     'output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+
+  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/23001303080/sequone.com/sequone.com-reward-072301&description_url=http%3A%2F%2Fsequone.com&tfcd=0&npa=0&sz=300x250%7C400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
@@ -56,22 +60,26 @@ function setUpIMA() {
   adsRequest.nonLinearAdSlotHeight = 150;
 
   adsLoader.requestAds(adsRequest);
+
+  console.log("setUpIMA end");
 }
 
 /**
  * Sets the 'adContainer' div as the IMA ad display container.
  */
 function createAdDisplayContainer() {
+  console.log("fn createAdDisplayContainer  ");
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
   adDisplayContainer = new google.ima.AdDisplayContainer(
-      document.getElementById('adContainer'), videoContent);
+    document.getElementById('adContainer'), videoContent);
 }
 
 /**
  * Loads the video content and initializes IMA ad playback.
  */
 function playAds() {
+  console.log("fn playAds  ");
   // Initialize the container. Must be done through a user action on mobile
   // devices.
   videoContent.load();
@@ -94,22 +102,23 @@ function playAds() {
  * @param {!google.ima.AdsManagerLoadedEvent} adsManagerLoadedEvent
  */
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  console.log("fn onAdsManagerLoaded");
   // Get the ads manager.
   const adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
   adsManager =
-      adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+    adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
 
   // Add listeners to the required events.
   adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
   adsManager.addEventListener(
-      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
+    google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
   adsManager.addEventListener(
-      google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
-      onContentResumeRequested);
+    google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
+    onContentResumeRequested);
   adsManager.addEventListener(
-      google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
+    google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
 
   // Listen to any additional events, if necessary.
   adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
@@ -124,6 +133,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
  * @param {!google.ima.AdEvent} adEvent
  */
 function onAdEvent(adEvent) {
+  console.log("fn onAdEvent");
   // Retrieve the ad from the event. Some events (for example,
   // ALL_ADS_COMPLETED) don't have ad object associated.
   const ad = adEvent.getAd();
@@ -145,10 +155,10 @@ function onAdEvent(adEvent) {
         // For a linear ad, a timer can be started to poll for
         // the remaining time.
         intervalTimer = setInterval(
-            function() {
-              // Example: const remainingTime = adsManager.getRemainingTime();
-            },
-            300);  // every 300ms
+          function () {
+            // Example: const remainingTime = adsManager.getRemainingTime();
+          },
+          300);  // every 300ms
       }
       break;
     case google.ima.AdEvent.Type.COMPLETE:
@@ -167,6 +177,7 @@ function onAdEvent(adEvent) {
  * @param {!google.ima.AdErrorEvent} adErrorEvent
  */
 function onAdError(adErrorEvent) {
+  console.log("fn onAdError  ", adErrorEvent);
   // Handle the error logging.
   console.log(adErrorEvent.getError());
   adsManager.destroy();
@@ -176,6 +187,7 @@ function onAdError(adErrorEvent) {
  * Pauses video content and sets up ad UI.
  */
 function onContentPauseRequested() {
+  console.log("fn onContentPauseRequested  ");
   videoContent.pause();
   // This function is where you should setup UI for showing ads (for example,
   // display ad timer countdown, disable seeking and more.)
@@ -186,6 +198,7 @@ function onContentPauseRequested() {
  * Resumes video content and removes ad UI.
  */
 function onContentResumeRequested() {
+  console.log("fn onContentResumeRequested  ");
   videoContent.play();
   // This function is where you should ensure that your UI is ready
   // to play content. It is the responsibility of the Publisher to
