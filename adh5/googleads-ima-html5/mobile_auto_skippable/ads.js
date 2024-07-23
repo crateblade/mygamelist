@@ -133,7 +133,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
  * @param {!google.ima.AdEvent} adEvent
  */
 function onAdEvent(adEvent) {
-  console.log("fn onAdEvent");
+  console.log("fn onAdEvent",adEvent.type);
   // Retrieve the ad from the event. Some events (for example,
   // ALL_ADS_COMPLETED) don't have ad object associated.
   const ad = adEvent.getAd();
@@ -145,6 +145,7 @@ function onAdEvent(adEvent) {
         // Position AdDisplayContainer correctly for overlay.
         // Use ad.width and ad.height.
         videoContent.play();
+        console.log("fn onAdEvent >> play ");
       }
       break;
     case google.ima.AdEvent.Type.STARTED:
@@ -152,6 +153,7 @@ function onAdEvent(adEvent) {
       // can adjust the UI, for example display a pause button and
       // remaining time.
       if (ad.isLinear()) {
+        console.log("fn onAdEvent >> isLinear ");
         // For a linear ad, a timer can be started to poll for
         // the remaining time.
         intervalTimer = setInterval(
@@ -162,6 +164,7 @@ function onAdEvent(adEvent) {
       }
       break;
     case google.ima.AdEvent.Type.COMPLETE:
+      console.log("fn onAdEvent >> COMPLETE ");
       // This event indicates the ad has finished - the video player
       // can perform appropriate UI actions, such as removing the timer for
       // remaining time detection.
