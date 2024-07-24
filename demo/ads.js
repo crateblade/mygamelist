@@ -16,6 +16,7 @@ let videoContent;
  * Initializes IMA setup.
  */
 function init() {
+  console.log('Ad fn init');
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
   playButton.addEventListener('click', playAds);
@@ -26,6 +27,7 @@ function init() {
  * Sets up IMA ad display container, ads loader, and makes an ad request.
  */
 function setUpIMA() {
+  console.log('Ad fn setUpIMA');
   // Create the ad display container.
   createAdDisplayContainer();
   // Create ads loader.
@@ -71,6 +73,7 @@ function setUpIMA() {
  * Sets the 'adContainer' div as the IMA ad display container.
  */
 function createAdDisplayContainer() {
+  console.log('Ad fn createAdDisplayContainer');
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
   adDisplayContainer = new google.ima.AdDisplayContainer(
@@ -81,6 +84,7 @@ function createAdDisplayContainer() {
  * Loads the video content and initializes IMA ad playback.
  */
 function playAds() {
+  console.log('Ad fn playAds');
   // Initialize the container. Must be done through a user action on mobile
   // devices.
   videoContent.load();
@@ -103,6 +107,7 @@ function playAds() {
  * @param {!google.ima.AdsManagerLoadedEvent} adsManagerLoadedEvent
  */
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  console.log('Ad fn onAdsManagerLoaded');
   // Get the ads manager.
   const adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
@@ -131,6 +136,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
  * @param {!google.ima.AdEvent} adEvent
  */
 function onAdEvent(adEvent) {
+  console.log('Ad fn onAdEvent',adEvent);
   // Retrieve the ad from the event. Some events (for example,
   // ALL_ADS_COMPLETED) don't have ad object associated.
   const ad = adEvent.getAd();
@@ -177,15 +183,17 @@ function onAdEvent(adEvent) {
  * @param {!google.ima.AdErrorEvent} adErrorEvent
  */
 function onAdError(adErrorEvent) {
+  console.log('Ad fn  onAdError:',adErrorEvent);
   // Handle the error logging.
   console.log(adErrorEvent.getError());
-  adsManager.destroy();
+  adsManager?.destroy();
 }
 
 /**
  * Pauses video content and sets up ad UI.
  */
 function onContentPauseRequested() {
+  console.log('Ad fn onContentPauseRequested');
   isAdPlaying = true;
   videoContent.pause();
   // This function is where you should setup UI for showing ads (for example,
@@ -197,6 +205,7 @@ function onContentPauseRequested() {
  * Resumes video content and removes ad UI.
  */
 function onContentResumeRequested() {
+  console.log('Ad fn onContentResumeRequested');
   isAdPlaying = false;
   if (!isContentFinished) {
     videoContent.play();
