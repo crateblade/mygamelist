@@ -50,10 +50,9 @@ function setUpIMA() {
 
   // Request video ads.
   const adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
-      'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&' +
-      'output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+  //adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/23001303080/sequone.com/sequone.com-reward-072302&description_url=http%3A%2F%2Fsequone.com&tfcd=0&npa=0&sz=300x250%7C400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
+    adsRequest.adTagUrl = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar=premidpostpod&deployment=gmf-js&cmsid=496&vid=short_onecue&correlator=';
+   //adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/23001303080/sequone.com/sequone.com-reward-072301&description_url=http://sequone.com&tfcd=0&npa=0&sz=300x250&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
@@ -135,6 +134,7 @@ function onAdEvent(adEvent) {
   const ad = adEvent.getAd();
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
+        console.log('Ad event: loaded');
       // This is the first event sent for an ad - it is possible to
       // determine whether the ad is a video ad or an overlay.
       if (!ad.isLinear()) {
@@ -155,6 +155,7 @@ function onAdEvent(adEvent) {
               // Example: const remainingTime = adsManager.getRemainingTime();
             },
             300);  // every 300ms
+          console.log('Ad event: start');
       }
       break;
     case google.ima.AdEvent.Type.COMPLETE:
@@ -164,6 +165,7 @@ function onAdEvent(adEvent) {
       if (ad.isLinear()) {
         clearInterval(intervalTimer);
       }
+      console.log('Ad event: complete');
       break;
   }
 }

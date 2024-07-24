@@ -152,7 +152,7 @@ function onAdEvent(adEvent) {
       // This event indicates the ad has started - the video player
       // can adjust the UI, for example display a pause button and
       // remaining time.
-      // if (ad.isLinear()) {
+       if (ad.isLinear()) {
         console.log("fn onAdEvent >> isLinear ");
         // For a linear ad, a timer can be started to poll for
         // the remaining time.
@@ -163,7 +163,7 @@ function onAdEvent(adEvent) {
             console.log("remainingTime>>>>>>>>",remainingTime);
           },
           300);  // every 300ms
-      // }
+      }
       break;
     case google.ima.AdEvent.Type.COMPLETE:
       console.log("fn onAdEvent >> COMPLETE ");
