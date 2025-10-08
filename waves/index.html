@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>手机端内嵌固定大小网页</title>
+    <style>
+        /* 1. 基础重置 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* 关键：防止滚动条出现 */
+        }
+
+        /* 2. 容器样式：用于全屏显示和居中 */
+        .iframe-container {
+            /* 始终填满整个视口 */
+            width: 100vw;
+            height: 100vh;
+            
+            /* 使用 Flexbox 实现绝对居中 */
+            display: flex;
+            justify-content: center; 
+            align-items: center;    
+            
+            background-color: #f0f0f0; 
+        }
+
+        /* 3. 内嵌内容区域 (390x844 模拟设备) */
+        .iframe-content {
+            /* 定义您需要的固定设计尺寸 */
+            width: 390px;
+            height: 844px;
+
+            /* 关键：使用 transform 居中。
+               将其放在屏幕中间，然后根据屏幕大小进行缩放。
+               如果浏览器不支持 transform，则会 fallback 到 390x844。
+            */
+            position: absolute; /* 相对于父容器居中 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+            border: 1px solid #ccc; 
+            overflow: hidden;
+            background-color: white;
+
+            /* 提升渲染性能，Cocos/游戏通常不需要这个，但保险起见 */
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        /* 4. iframe 样式 */
+        .iframe-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 5. 媒体查询/视口缩放适配 (可选，但推荐用于游戏/Cocos) */
+        @media (max-width: 390px), (max-height: 844px) {
+            /* 当视口小于目标尺寸时，计算缩放比例 */
+            .iframe-content {
+                /*
+                 * 缩放计算逻辑 (在实际应用中需要JS动态计算，这里仅为CSS静态示例):
+                 * scaleFactor = min(视口宽度/390, 视口高度/844)
+                 * * 由于CSS无法获取视口尺寸进行计算，如果要在纯CSS中实现完美适配，
+                 * 建议使用 JS 在 resize 或 load 时计算并设置 .iframe-content 的 transform: scale(x)
+                 */
+
+                /* 示例：假设在小屏手机上需要缩小到 90% */
+                /* transform: scale(0.9); */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="iframe-container">
+        <div class="iframe-content">
+            <iframe 
+                src="./wave/index.html" 
+                title="我的游戏"
+            ></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', updateScale);
+        window.addEventListener('resize', updateScale);
+
+        function updateScale() {
+            const container = document.querySelector('.iframe-content');
+            if (!container) return;
+
+            const targetWidth = 390;
+            const targetHeight = 844;
+            
+            // 获取当前的视口尺寸
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // 计算宽度和高度的缩放比例
+            const scaleX = viewportWidth / targetWidth;
+            const scaleY = viewportHeight / targetHeight;
+
+            // 选择最小的缩放比例，确保内容在屏幕上始终可见（Fit 模式）
+            const scaleFactor = Math.min(scaleX, scaleY);
+
+            // 应用缩放
+            container.style.transform = `scale(${scaleFactor})`;
+        }
+    </script>
+
+</body>
+</html>
