@@ -1,115 +1,49 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>手机端</title>
-    <style>
-        /* 1. 基础重置 */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* 关键：防止滚动条出现 */
-        }
+<html>
+  <head>
+    <meta charset="utf-8">
 
-        /* 2. 容器样式：用于全屏显示和居中 */
-        .iframe-container {
-            /* 始终填满整个视口 */
-            width: 100vw;
-            height: 100vh;
-            
-            /* 使用 Flexbox 实现绝对居中 */
-            display: flex;
-            justify-content: center; 
-            align-items: center;    
-            
-            background-color: #f0f0f0; 
-        }
+    <title>Cocos Creator | spacewaves</title>
 
-        /* 3. 内嵌内容区域 (390x844 模拟设备) */
-        .iframe-content {
-            /* 定义您需要的固定设计尺寸 */
-            width: 390px;
-            height: 844px;
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
 
-            /* 关键：使用 transform 居中。
-               将其放在屏幕中间，然后根据屏幕大小进行缩放。
-               如果浏览器不支持 transform，则会 fallback 到 390x844。
-            */
-            position: absolute; /* 相对于父容器居中 */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
-            border: 1px solid #ccc; 
-            overflow: hidden;
-            background-color: white;
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-            /* 提升渲染性能，Cocos/游戏通常不需要这个，但保险起见 */
-            transform-origin: center center;
-            will-change: transform;
-        }
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+    <link rel="icon" href="favicon.ico"/>
+  </head>
+  <body>
+    <h1 class="header">spacewaves</h1>
 
-        /* 4. iframe 样式 */
-        .iframe-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* 5. 媒体查询/视口缩放适配 (可选，但推荐用于游戏/Cocos) */
-        @media (max-width: 390px), (max-height: 844px) {
-            /* 当视口小于目标尺寸时，计算缩放比例 */
-            .iframe-content {
-                /*
-                 * 缩放计算逻辑 (在实际应用中需要JS动态计算，这里仅为CSS静态示例):
-                 * scaleFactor = min(视口宽度/390, 视口高度/844)
-                 * * 由于CSS无法获取视口尺寸进行计算，如果要在纯CSS中实现完美适配，
-                 * 建议使用 JS 在 resize 或 load 时计算并设置 .iframe-content 的 transform: scale(x)
-                 */
-
-                /* 示例：假设在小屏手机上需要缩小到 90% */
-                /* transform: scale(0.9); */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="iframe-container">
-        <div class="iframe-content">
-            <iframe 
-                src="./wave/index.html" 
-                title="我的游戏"
-            ></iframe>
-        </div>
+    <div id="GameDiv" cc_exact_fit_screen="false" style="width: 1280px; height: 960px;">
+      <div id="Cocos3dGameContainer">
+        <canvas id="GameCanvas" width="1280" height="960" tabindex="99"></canvas>
+      </div>
     </div>
+    <p class="footer">
+      Created with <a href="https://www.cocos.com/products" title="Cocos Creator">Cocos Creator</a>
+    </p>
+    <!-- Polyfills bundle. -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', updateScale);
-        window.addEventListener('resize', updateScale);
+<script src="src/polyfills.bundle.js" charset="utf-8"> </script>    
 
-        function updateScale() {
-            const container = document.querySelector('.iframe-content');
-            if (!container) return;
 
-            const targetWidth = 390;
-            const targetHeight = 844;
-            
-            // 获取当前的视口尺寸
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
+<!-- SystemJS support. -->
+<script src="src/system.bundle.js" charset="utf-8"> </script>
 
-            // 计算宽度和高度的缩放比例
-            const scaleX = viewportWidth / targetWidth;
-            const scaleY = viewportHeight / targetHeight;
+<!-- Import map -->
+<script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
 
-            // 选择最小的缩放比例，确保内容在屏幕上始终可见（Fit 模式）
-            const scaleFactor = Math.min(scaleX, scaleY);
-
-            // 应用缩放
-            container.style.transform = `scale(${scaleFactor})`;
-        }
-    </script>
-
-</body>
+<script>
+    System.import('./index.js').catch(function(err) { console.error(err); })
+</script>
+  </body>
 </html>
